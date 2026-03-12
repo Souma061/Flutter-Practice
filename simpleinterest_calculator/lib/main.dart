@@ -28,18 +28,20 @@ class _SICalculatorPageState extends State<SICalculatorPage> {
   final _formKey = GlobalKey<FormState>();
   final _prinipalController = TextEditingController();
   final _rateController = TextEditingController();
+  final _timeController = TextEditingController();
 
-  final List<int> _timeOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  int? _selectedTime;
+  // final List<int> _timeOptions = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  // int? _selectedTime;
   String _result = "";
 
-  void _calculateSI() {
-    if (_formKey.currentState!.validate() && _selectedTime != null) {
+ void _calculateSI() {
+    if (_formKey.currentState!.validate()) {
       double p = double.parse(_prinipalController.text);
       double r = double.parse(_rateController.text);
-      int t = _selectedTime!;
+      double t = double.parse(_timeController.text);
 
       double si = (p * r * t) / 100;
+
       setState(() {
         _result = "Simple Interest: $si";
       });
@@ -79,20 +81,12 @@ class _SICalculatorPageState extends State<SICalculatorPage> {
                     : null,
               ),
               const SizedBox(height: 16),
-              DropdownButtonFormField<int>(
-                hint: const Text('Select Time (years)'),
-                initialValue: _selectedTime,
-                items: _timeOptions.map((year) {
-                  return DropdownMenuItem<int>(
-                    value: year,
-                    child: Text(year.toString()),
-                  );
-                }).toList(),
-                onChanged: (int? value) {
-                  setState(() {
-                    _selectedTime = value;
-                  });
-                },
+      TextFormField(
+                controller: _timeController,
+                keyboardType: TextInputType.number,
+                decoration: const InputDecoration(labelText: 'Time (years)'),
+                validator: (value) =>
+                    value == null || value.isEmpty ? 'Please enter time' : null,
               ),
               const SizedBox(height: 24),
               ElevatedButton(
