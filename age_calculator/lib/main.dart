@@ -43,13 +43,55 @@ class AgeCalculatorPage extends StatefulWidget {
 }
 
 class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
+  // final TextEditingController _ageController = TextEditingController();
+  // String _result = "";
+
+  // void _calculateAge() {
+  //   if (_ageController.text.isEmpty) {
+  //     setState(() {
+  //       _result = "Please enter your age";
+  //     });
+  //     return;
+  //   }
+  //   try {
+  //     DateTime dob = DateTime.parse(_ageController.text);
+  //     DateTime today = DateTime.now();
+
+  //     if (dob.isAfter(today)) {
+  //       setState(() {
+  //         _result = "Date of birth cannot be in the future";
+  //       });
+  //       return;
+  //     }
+  //     int years = today.year - dob.year;
+  //     int month = today.month - dob.month;
+  //     int day = today.day - dob.day;
+
+  //     if (day < 0) {
+  //       month--;
+  //       day += DateTime(today.year, today.month, 0).day;
+  //     }
+  //     if (month < 0) {
+  //       years--;
+  //       month += 12;
+  //     }
+  //     setState(() {
+  //       _result = "You are $years years, $month months and $day days old.";
+  //     });
+  //   } catch (e) {
+  //     setState(() {
+  //       _result = "Invalid date format. Please use YYYY-MM-DD.";
+  //     });
+  //   }
+  // }
+
   final TextEditingController _ageController = TextEditingController();
   String _result = "";
 
   void _calculateAge() {
     if (_ageController.text.isEmpty) {
       setState(() {
-        _result = "Please enter your age";
+        _result = "Enter your age";
       });
       return;
     }
@@ -58,29 +100,26 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
       DateTime today = DateTime.now();
 
       if (dob.isAfter(today)) {
-        setState(() {
-          _result = "Date of birth cannot be in the future";
-        });
-        return;
+        _result = "DOB can't be in future";
       }
       int years = today.year - dob.year;
-      int month = today.month - dob.month;
+      int months = today.month - dob.month;
       int day = today.day - dob.day;
 
       if (day < 0) {
-        month--;
+        months--;
         day += DateTime(today.year, today.month, 0).day;
       }
-      if (month < 0) {
+      if (months < 0) {
         years--;
-        month += 12;
+        months += 12;
       }
       setState(() {
-        _result = "You are $years years, $month months and $day days old.";
+        _result = 'You are $years years  $months and $day day old';
       });
     } catch (e) {
       setState(() {
-        _result = "Invalid date format. Please use YYYY-MM-DD.";
+        _result = 'Error';
       });
     }
   }
@@ -107,10 +146,7 @@ class _AgeCalculatorPageState extends State<AgeCalculatorPage> {
               child: const Text("Calculate Age"),
             ),
             const SizedBox(height: 20),
-            Text(
-              _result,
-              style: const TextStyle(fontSize: 18),
-            )
+            Text(_result, style: const TextStyle(fontSize: 18)),
           ],
         ),
       ),

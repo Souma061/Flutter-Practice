@@ -29,6 +29,26 @@ class DigitalClockPage extends StatefulWidget {
 }
 
 class _DigitalClockPageState extends State<DigitalClockPage> {
+  // late Timer _timer;
+  // DateTime _currentTime = DateTime.now();
+  // Color _bgColor = Colors.pink;
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+  //     setState(() {
+  //       _currentTime = DateTime.now();
+  //     });
+  //   });
+  // }
+
+  // @override
+  // void dispose() {
+  //   _timer.cancel();
+  //   super.dispose();
+  // }
+
   late Timer _timer;
   DateTime _currentTime = DateTime.now();
   Color _bgColor = Colors.pink;
@@ -78,7 +98,9 @@ class _DigitalClockPageState extends State<DigitalClockPage> {
             ),
             ElevatedButton(
               onPressed: () {
-                _bgColor = Colors.blue;
+                setState(() {
+                  _bgColor = Colors.blue;
+                });
               },
               child: const Text('Blue'),
             ),
